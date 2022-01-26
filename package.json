@@ -21,10 +21,15 @@
     "build": "tree-sitter generate && node-gyp build",
     "test": "tree-sitter test"
   },
+  "prettier": {
+    "arrowParens": "avoid",
+    "singleQuote": true
+  },
   "dependencies": {
     "nan": "^2.15.0"
   },
   "devDependencies": {
+    "prettier": "2.5.1",
     "tree-sitter-cli": "^0.20.4"
   }
 }

@@ -1,0 +1,50 @@
+====================================
+Bare class
+====================================
+
+class Bare {
+}
+
+---
+
+(class_declaration
+  (identifier)
+  (class_body))
+
+====================================
+Hello, world!
+====================================
+
+class Main {
+  /**
+   * Block comment
+   */
+  function void main() {
+    do Output.printString("Hello, world!");
+    do Output.println(); // New line
+    return;
+  }
+}
+
+---
+
+(class_declaration
+  (identifier)
+  (class_body
+    (comment)
+    (function_declaration
+      (return_type)
+      (identifier)
+      (parameter_list)
+      (subroutine_body
+        (statements
+          (do_statement
+            (subroutine_call
+              (member_expression (identifier) (identifier))
+              (expression_list (expression (term (string_constant))))))
+          (do_statement
+            (subroutine_call
+              (member_expression (identifier) (identifier))
+              (expression_list)))
+          (comment)
+          (return_statement))))))
