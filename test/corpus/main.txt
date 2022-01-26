@@ -48,3 +48,70 @@ class Main {
               (expression_list)))
           (comment)
           (return_statement))))))
+
+====================================
+Local variables
+====================================
+
+class Main {
+  function void main() {
+    var int i, j;
+    var boolean a;
+    let i = 0;
+    let j = i;
+    let a = false;
+    return;
+  }
+}
+
+---
+
+(class_declaration
+  (identifier)
+  (class_body
+    (function_declaration
+      (return_type)
+      (identifier)
+      (parameter_list)
+      (subroutine_body
+        (var_declaration (type) (identifier) (identifier))
+        (var_declaration (type) (identifier))
+        (statements
+          (let_statement (identifier) (expression (term (integer_constant))))
+          (let_statement (identifier) (expression (term (identifier))))
+          (let_statement (identifier) (expression (term (keyword_constant))))
+          (return_statement))))))
+
+====================================
+Static and instance variables
+====================================
+
+class Dog {
+  field int age, teeth;
+  static boolean builtOnce;
+
+  constructor Dog new(int ageParam, int teethParam) {
+    let age = ageParam;
+    let teeth = teethParam;
+    let builtOnce = true;
+    return this;
+  }
+}
+
+---
+
+(class_declaration
+  (identifier)
+  (class_body
+    (field_declaration (type) (identifier) (identifier))
+    (static_declaration (type) (identifier))
+    (constructor_declaration
+      (return_type (type (identifier)))
+      (identifier)
+      (parameter_list (parameter (type) (identifier)) (parameter (type) (identifier)))
+      (subroutine_body
+        (statements
+          (let_statement (identifier) (expression (term (identifier))))
+          (let_statement (identifier) (expression (term (identifier))))
+          (let_statement (identifier) (expression (term (keyword_constant))))
+          (return_statement (expression (term (keyword_constant)))))))))
