@@ -1,0 +1,30 @@
+{
+  "name": "tree-sitter-jack",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Jack (nand2tetris) grammar for tree-sitter",
+  "author": "Jonathan Reyes <j@jreyes.org> (https://jreyes.org)",
+  "homepage": "https://github.com/jreyes33/tree-sitter-jack#readme",
+  "main": "bindings/node",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jreyes33/tree-sitter-jack.git"
+  },
+  "keywords": [
+    "parser",
+    "lexer"
+  ],
+  "bugs": {
+    "url": "https://github.com/jreyes33/tree-sitter-jack/issues"
+  },
+  "scripts": {
+    "build": "tree-sitter generate && node-gyp build",
+    "test": "tree-sitter test"
+  },
+  "dependencies": {
+    "nan": "^2.15.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.4"
+  }
+}
