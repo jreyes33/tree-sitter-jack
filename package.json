@@ -18,8 +18,10 @@
     "url": "https://github.com/jreyes33/tree-sitter-jack/issues"
   },
   "scripts": {
-    "build": "tree-sitter generate && node-gyp build",
-    "test": "tree-sitter test"
+    "check": "npm run build && npm run test",
+    "build": "tree-sitter generate",
+    "test": "tree-sitter test",
+    "format": "prettier --write grammar.js"
   },
   "prettier": {
     "arrowParens": "avoid",
