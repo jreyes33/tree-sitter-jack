@@ -625,11 +625,24 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "member_expression"
+          "name": "_callee"
         },
         {
           "type": "SYMBOL",
           "name": "expression_list"
+        }
+      ]
+    },
+    "_callee": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "member_expression"
         }
       ]
     },
@@ -707,8 +720,83 @@
       ]
     },
     "expression": {
-      "type": "SYMBOL",
-      "name": "term"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "term"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "op"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "term"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "op": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "+"
+        },
+        {
+          "type": "STRING",
+          "value": "-"
+        },
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "STRING",
+          "value": "&"
+        },
+        {
+          "type": "STRING",
+          "value": "|"
+        },
+        {
+          "type": "STRING",
+          "value": "<"
+        },
+        {
+          "type": "STRING",
+          "value": ">"
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        }
+      ]
+    },
+    "unary_op": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "-"
+        },
+        {
+          "type": "STRING",
+          "value": "~"
+        }
+      ]
     },
     "term": {
       "type": "CHOICE",
@@ -745,6 +833,36 @@
         {
           "type": "SYMBOL",
           "name": "subroutine_call"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "unary_op"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "term"
+            }
+          ]
         }
       ]
     },
@@ -796,6 +914,10 @@
         {
           "type": "STRING",
           "value": "false"
+        },
+        {
+          "type": "STRING",
+          "value": "null"
         },
         {
           "type": "STRING",

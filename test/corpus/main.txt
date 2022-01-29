@@ -220,3 +220,71 @@ class Foo {
             (expression (term (integer_constant)))
             (expression (term (identifier) (expression (term (integer_constant))))))
           (return_statement))))))
+
+====================================
+Expressions
+====================================
+
+class Foo {
+  function char bar() {
+    var int a;
+    let a = 1 + 1;
+    if (~false) {
+      let a = -a * 20 + 1;
+    }
+    let a = ((a > 0) | (a < 5)) = true;
+    let a = baz() / 3;
+    return 65;
+  }
+}
+
+---
+
+(class_declaration
+  (identifier)
+  (class_body
+    (function_declaration
+      (return_type (type))
+      (identifier)
+      (parameter_list)
+      (subroutine_body
+        (var_declaration (type) (identifier))
+        (statements
+          (let_statement
+            (identifier)
+            (expression
+              (term (integer_constant))
+              (op)
+              (term (integer_constant))))
+          (if_statement
+            (expression (term (unary_op) (term (keyword_constant))))
+            (statements
+              (let_statement
+                (identifier)
+                (expression
+                  (term
+                    (unary_op)
+                    (term (identifier)))
+                  (op)
+                  (term (integer_constant))
+                  (op)
+                  (term (integer_constant))))))
+          (let_statement
+            (identifier)
+            (expression
+              (term
+                (expression
+                  (term
+                    (expression (term (identifier)) (op) (term (integer_constant))))
+                  (op)
+                  (term
+                    (expression (term (identifier)) (op) (term (integer_constant))))))
+              (op)
+              (term (keyword_constant))))
+          (let_statement
+            (identifier)
+            (expression
+              (term (subroutine_call (identifier) (expression_list)))
+              (op)
+              (term (integer_constant))))
+          (return_statement (expression (term (integer_constant)))))))))

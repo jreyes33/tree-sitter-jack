@@ -62,10 +62,13 @@ module.exports = grammar({
       seq('while', '(', $.expression, ')', '{', optional($.statements), '}'),
     do_statement: $ => seq('do', $.subroutine_call, ';'),
     return_statement: $ => seq('return', optional($.expression), ';'),
-    subroutine_call: $ => seq($.member_expression, $.expression_list),
-    member_expression: $ => seq($.identifier, '.', $.identifier), // TODO: support more nesting
+    subroutine_call: $ => seq($._callee, $.expression_list),
+    _callee: $ => choice($.identifier, $.member_expression),
+    member_expression: $ => seq($.identifier, '.', $.identifier),
     expression_list: $ => seq('(', commaSep(seq($.expression)), ')'),
-    expression: $ => $.term, // TODO: add (op term)*
+    expression: $ => seq($.term, repeat(seq($.op, $.term))),
+    op: $ => choice('+', '-', '*', '/', '&', '|', '<', '>', '='),
+    unary_op: $ => choice('-', '~'),
     term: $ =>
       choice(
         $.integer_constant,
@@ -74,11 +77,13 @@ module.exports = grammar({
         $.identifier,
         seq($.identifier, $._subscript),
         $.subroutine_call,
-      ), // TODO: add others
+        seq('(', $.expression, ')'),
+        seq($.unary_op, $.term),
+      ),
     _subscript: $ => seq('[', $.expression, ']'),
     string_constant: $ => seq('"', /[^\n"]*/, '"'),
     integer_constant: $ => /\d+/,
-    keyword_constant: $ => choice('true', 'false', 'this'), // TODO: add others
+    keyword_constant: $ => choice('true', 'false', 'null', 'this'),
     identifier: $ => /[A-Za-z_]\w*/,
     // From: https://github.com/tree-sitter/tree-sitter-javascript/blob/v0.19.0/grammar.js#L887
     comment: $ =>

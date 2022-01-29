@@ -96,9 +96,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "op",
+          "named": true
+        },
         {
           "type": "term",
           "named": true
@@ -253,6 +257,11 @@
     }
   },
   {
+    "type": "op",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "parameter",
     "named": true,
     "fields": {},
@@ -403,6 +412,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "member_expression",
           "named": true
         }
@@ -440,6 +453,14 @@
         {
           "type": "subroutine_call",
           "named": true
+        },
+        {
+          "type": "term",
+          "named": true
+        },
+        {
+          "type": "unary_op",
+          "named": true
         }
       ]
     }
@@ -458,6 +479,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "unary_op",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "var_declaration",
@@ -502,6 +528,10 @@
     "named": false
   },
   {
+    "type": "&",
+    "named": false
+  },
+  {
     "type": "(",
     "named": false
   },
@@ -510,7 +540,19 @@
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {
@@ -518,11 +560,23 @@
     "named": false
   },
   {
+    "type": "/",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": ">",
     "named": false
   },
   {
@@ -598,6 +652,10 @@
     "named": false
   },
   {
+    "type": "null",
+    "named": false
+  },
+  {
     "type": "return",
     "named": false
   },
@@ -630,7 +688,15 @@
     "named": false
   },
   {
+    "type": "|",
+    "named": false
+  },
+  {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   }
 ]
