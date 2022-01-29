@@ -4,7 +4,7 @@ description = "Jack (nand2tetris) grammar for the tree-sitter parsing library"
 version = "0.1.1"
 keywords = ["incremental", "parsing", "jack", "nand2tetris"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/tree-sitter/tree-sitter-jack"
+repository = "https://github.com/jreyes33/tree-sitter-jack"
 edition = "2018"
 license = "MIT"
 
