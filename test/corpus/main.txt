@@ -115,3 +115,70 @@ class Dog {
           (let_statement (identifier) (expression (term (identifier))))
           (let_statement (identifier) (expression (term (keyword_constant))))
           (return_statement (expression (term (keyword_constant)))))))))
+
+====================================
+Method declaration
+====================================
+
+class Cat {
+  method String meow() {
+    return "Meow";
+  }
+}
+
+---
+
+(class_declaration
+  (identifier)
+  (class_body
+    (method_declaration
+      (return_type (type (identifier)))
+      (identifier)
+      (parameter_list)
+      (subroutine_body
+        (statements
+          (return_statement (expression (term (string_constant)))))))))
+
+====================================
+If, if-else, and while statements
+====================================
+
+class Main {
+  function void main() {
+    if (true) {
+      return;
+    }
+    if (true) {
+      return;
+    } else {
+      return;
+    }
+    while (true) {
+      return;
+    }
+    return;
+  }
+}
+
+---
+
+(class_declaration
+  (identifier)
+  (class_body
+    (function_declaration
+      (return_type)
+      (identifier)
+      (parameter_list)
+      (subroutine_body
+        (statements
+          (if_statement
+            (expression (term (keyword_constant)))
+            (statements (return_statement)))
+          (if_statement
+            (expression (term (keyword_constant)))
+            (statements (return_statement))
+            (statements (return_statement)))
+          (while_statement
+            (expression (term (keyword_constant)))
+            (statements (return_statement)))
+          (return_statement))))))

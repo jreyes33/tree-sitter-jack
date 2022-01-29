@@ -18,9 +18,14 @@ module.exports = grammar({
       seq('static', $.type, commaSep1($.identifier), ';'),
     field_declaration: $ => seq('field', $.type, commaSep1($.identifier), ';'),
     _subroutine_declaration: $ =>
-      choice($.constructor_declaration, $.function_declaration), // TODO: add other types
+      choice(
+        $.constructor_declaration,
+        $.function_declaration,
+        $.method_declaration
+      ),
     constructor_declaration: $ => seq('constructor', $._subroutine),
     function_declaration: $ => seq('function', $._subroutine),
+    method_declaration: $ => seq('method', $._subroutine),
     _subroutine: $ =>
       seq($.return_type, $.identifier, $.parameter_list, $.subroutine_body),
     return_type: $ => choice('void', $.type),
@@ -32,10 +37,21 @@ module.exports = grammar({
     var_declaration: $ => seq('var', $.type, commaSep1($.identifier), ';'),
     statements: $ => repeat1($._statement),
     _statement: $ =>
-      seq(choice($.let_statement, $.do_statement, $.return_statement), ';'), // TODO: add other statements
-    let_statement: $ => seq('let', $.identifier, '=', $.expression),
-    do_statement: $ => seq('do', $.subroutine_call),
-    return_statement: $ => seq('return', optional($.expression)),
+      choice(
+        $.let_statement,
+        $.if_statement,
+        $.while_statement,
+        $.do_statement,
+        $.return_statement
+      ),
+    let_statement: $ => seq('let', $.identifier, '=', $.expression, ';'),
+    if_statement: $ =>
+      seq('if', '(', $.expression, ')', '{', optional($.statements), '}', optional($._else)),
+    _else: $ => seq('else', '{', optional($.statements), '}'),
+    while_statement: $ =>
+      seq('while', '(', $.expression, ')', '{', optional($.statements), '}'),
+    do_statement: $ => seq('do', $.subroutine_call, ';'),
+    return_statement: $ => seq('return', optional($.expression), ';'),
     subroutine_call: $ => seq($.member_expression, $.expression_list),
     member_expression: $ => seq($.identifier, '.', $.identifier), // TODO: support more nesting
     expression_list: $ => seq('(', commaSep(seq($.expression)), ')'),
