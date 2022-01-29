@@ -182,3 +182,41 @@ class Main {
             (expression (term (keyword_constant)))
             (statements (return_statement)))
           (return_statement))))))
+
+====================================
+Array subscripting
+====================================
+
+class Foo {
+  function void bar(Array a) {
+    var Array b;
+    let b = Array.new(10);
+    let b[0] = a[0];
+    return;
+  }
+}
+
+---
+
+(class_declaration
+  (identifier)
+  (class_body
+    (function_declaration
+      (return_type)
+      (identifier)
+      (parameter_list (parameter (type (identifier)) (identifier)))
+      (subroutine_body
+        (var_declaration (type (identifier)) (identifier))
+        (statements
+          (let_statement
+            (identifier)
+            (expression
+              (term
+                (subroutine_call
+                  (member_expression (identifier) (identifier))
+                  (expression_list (expression (term (integer_constant))))))))
+          (let_statement
+            (identifier)
+            (expression (term (integer_constant)))
+            (expression (term (identifier) (expression (term (integer_constant))))))
+          (return_statement))))))

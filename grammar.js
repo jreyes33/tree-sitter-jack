@@ -10,7 +10,7 @@ module.exports = grammar({
         '{',
         repeat($._class_var_declaration),
         repeat($._subroutine_declaration),
-        '}'
+        '}',
       ),
     _class_var_declaration: $ =>
       choice($.static_declaration, $.field_declaration),
@@ -21,7 +21,7 @@ module.exports = grammar({
       choice(
         $.constructor_declaration,
         $.function_declaration,
-        $.method_declaration
+        $.method_declaration,
       ),
     constructor_declaration: $ => seq('constructor', $._subroutine),
     function_declaration: $ => seq('function', $._subroutine),
@@ -42,11 +42,21 @@ module.exports = grammar({
         $.if_statement,
         $.while_statement,
         $.do_statement,
-        $.return_statement
+        $.return_statement,
       ),
-    let_statement: $ => seq('let', $.identifier, '=', $.expression, ';'),
+    let_statement: $ =>
+      seq('let', $.identifier, optional($._subscript), '=', $.expression, ';'),
     if_statement: $ =>
-      seq('if', '(', $.expression, ')', '{', optional($.statements), '}', optional($._else)),
+      seq(
+        'if',
+        '(',
+        $.expression,
+        ')',
+        '{',
+        optional($.statements),
+        '}',
+        optional($._else),
+      ),
     _else: $ => seq('else', '{', optional($.statements), '}'),
     while_statement: $ =>
       seq('while', '(', $.expression, ')', '{', optional($.statements), '}'),
@@ -61,16 +71,19 @@ module.exports = grammar({
         $.integer_constant,
         $.string_constant,
         $.keyword_constant,
-        $.identifier
+        $.identifier,
+        seq($.identifier, $._subscript),
+        $.subroutine_call,
       ), // TODO: add others
+    _subscript: $ => seq('[', $.expression, ']'),
     string_constant: $ => seq('"', /[^\n"]*/, '"'),
-    integer_constant: $ => /\d/,
+    integer_constant: $ => /\d+/,
     keyword_constant: $ => choice('true', 'false', 'this'), // TODO: add others
     identifier: $ => /[A-Za-z_]\w*/,
     // From: https://github.com/tree-sitter/tree-sitter-javascript/blob/v0.19.0/grammar.js#L887
     comment: $ =>
       token(
-        choice(seq('//', /.*/), seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/'))
+        choice(seq('//', /.*/), seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')),
       ),
   },
 });

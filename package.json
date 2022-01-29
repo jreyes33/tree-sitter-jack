@@ -25,7 +25,8 @@
   },
   "prettier": {
     "arrowParens": "avoid",
-    "singleQuote": true
+    "singleQuote": true,
+    "trailingComma": "all"
   },
   "dependencies": {
     "nan": "^2.15.0"

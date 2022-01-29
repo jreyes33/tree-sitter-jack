@@ -414,9 +414,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
         {
           "type": "identifier",
           "named": true
@@ -431,6 +435,10 @@
         },
         {
           "type": "string_constant",
+          "named": true
+        },
+        {
+          "type": "subroutine_call",
           "named": true
         }
       ]
@@ -515,6 +523,14 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
     "named": false
   },
   {
