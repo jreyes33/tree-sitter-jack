@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-jack",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "description": "Jack (nand2tetris) grammar for tree-sitter",
   "author": "Jonathan Reyes <j@jreyes.org> (https://jreyes.org)",
